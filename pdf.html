@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="content">
+        <h3>Sample h3 tag</h3>
+        <p>Sample pararaph</p>
+        <fieldset>
+            <legend>Inversion</legend>
+            <br>
+            <label for="">Monto de inversion:</label>
+            <input type="number" id="txtN1">
+            <br><br>
+            <label for="">Porcentaje a tomar:</label>
+            <input type="number" id="txtN2">
+            <br><br>
+            <input type="button" onclick="inversion()" value="Calucular">
+            <br />
+            
+            
+            <p id="PorDia">Ganancia por Dia: </p>
+            <p id="Por7Dias">Ganancia por semana: </p>
+            <p id="Por30Dias">Ganancia por 30 Dias: </p>
+            <p id="TotalMas30">Total mas Ganancia por 30 Dias: </p>
+        </fieldset>
+    
+    
+            
+            
+        <fieldset>
+            <legend>Sacar porcentaje de la inversion</legend>
+            <br>
+            <label for="">Ganancia:</label>
+            <input type="number" id="txtN3">
+            <br><br>
+            <label for="">Dias:</label>
+            <input type="number" id="txtN4">
+            <br><br>
+            <label for="">Inversion:</label>
+            <input type="number" id="txtN5">
+            <!-- Agrego el checkbox para saber si es ganancia actualizada -->
+            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">Inversion Actualizada</label>
+            <br><br>
+            <input type="button" onclick="SacarPorcentajeDeLaInversion();" value="Calucular">
+            <br />
+            <!-- Cuando calcula con el check box muestra la inversion inicial -->
+            <p id="Porcentaje">Porcentaje: </p>
+            <p style="display: none;" id="InvAct"></p>
+        </fieldset>
+        
+        
+        <fieldset>
+            <legend>Sacar la inversion para la ganancia ideal</legend>
+            <br>
+            <label for="">Ganancia ideal:</label>
+            <input type="number" id="txtN6">
+            <br><br>
+            <label for="">Dias:</label>
+            <input type="number" id="txtN7">
+            <br><br>
+            <label for="">Porcentaje:</label>
+            <input type="number" id="txtN8">
+            <br><br>
+            <input type="button" onclick="SacarLaInversionParaLaGananciaIdeal();" value="Calucular">
+            <br />
+            <p id="InversionRequerida" class="prueba">Inversion Requerida: </p>
+        </fieldset>
+    </div>
+    <div id="editor"></div>
+    <button id="cmd">Generate PDF</button>
+    <!--Add External Libraries - JQuery and jspdf 
+    check out url - https://scotch.io/@nagasaiaytha/generate-pdf-from-html-using-jquery-and-jspdf
+    -->
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+	<script>
+        function generatePDF() {
+            var doc = new jsPDF();
+
+            doc.text("Sample h3 tag", 15, 15);
+            doc.text("Sample paragraph", 15, 25);
+
+            doc.setTextColor(0,255,0);
+            doc.text("Ganancia por Día:", 15, 35);
+
+			// Línea punteada de separación
+            doc.setDrawColor(0); // Color de la línea
+            doc.setLineWidth(0.5); // Ancho de la línea
+			var startY = 37;
+            var endY = 37;
+            for (var i = 15; i <= 200; i += 5) { //genera la linea punteada
+                doc.line(i, startY, i + 2.5, endY);
+            }
+            doc.setTextColor(255,0,0);
+            doc.text("Ganancia por semana:", 15, 45);
+            doc.setTextColor("blue");
+            doc.text("Ganancia por 30 Días:", 15, 55);
+            doc.setTextColor("purple");
+            doc.text("Total más Ganancia por 30 Días:", 15, 65);
+			
+			// Línea punteada de separación
+            doc.setDrawColor(0); // Color de la línea
+            doc.setLineWidth(0.5); // Ancho de la línea
+			var startY = 75;
+            var endY = 75;
+            for (var i = 15; i <= 200; i += 5) { //genera la linea punteada
+                doc.line(i, startY, i + 2.5, endY);
+            }
+
+			// Línea punteada de separación
+            doc.setDrawColor(0); // Color de la línea
+            doc.setLineWidth(0.5); // Ancho de la línea
+			var startY = 0;
+            var endY = 0;
+            for (var i = 0; i <= 210; i += 5) { //genera la linea punteada
+                doc.line(i, startY, i + 2.5, endY);
+            }
+
+			// Línea punteada de separación horizontal
+            doc.setDrawColor(0); // Color de la línea
+            doc.setLineWidth(0.5); // Ancho de la línea
+			var startY = 0;
+            var endY = 0;
+            for (var i = 0; i <= 210; i += 5) { //genera la linea punteada
+                doc.line(i, startY, i + 2.5, endY);
+            }
+ 
+			// Línea punteada de separación horizontal
+            doc.setDrawColor(0); // Color de la línea
+            doc.setLineWidth(0.5); // Ancho de la línea
+			var startY = 297;
+            var endY = 297;
+            for (var i = 0; i <= 210; i += 5) { //genera la linea punteada
+                doc.line(i, startY, i + 2.5, endY);
+            }
+
+			// Línea punteada de separación vertical
+            var startX = 1;
+            var startY = 0;
+            var endY = 297;
+            var step = 2; // Distancia entre los segmentos de línea
+
+            for (var i = startY; i <= endY; i += step) {
+                doc.line(startX, i, startX, i + 1);
+            }
+
+			// Línea punteada de separación vertical
+			doc.setDrawColor(255,255,0); // Color de la línea
+			doc.setLineWidth(2); // Ancho de la línea aumentado
+            var startX = 209;
+            var startY = 0;
+            var endY = 297;
+            var step = 2; // Distancia entre los segmentos de línea
+			//Linea punteada
+            /*for (var i = startY; i <= endY; i += step) {
+                doc.line(startX, i, startX, i + 1);
+            }*/
+			//Linea
+			doc.line(startX, startY, startX, endY);
+
+
+			// Dibujar un cuadrado con esquinas redondeadas
+            doc.setDrawColor(0); // Color de la línea
+            doc.setFillColor(255); // Color de relleno
+            doc.setLineWidth(0.5); // Ancho de la línea
+
+            var x = 100; // Coordenada x de la esquina superior izquierda del cuadrado
+            var y = 35; // Coordenada y de la esquina superior izquierda del cuadrado
+            var width = 50; // Ancho del cuadrado
+            var height = 30; // Altura del cuadrado
+            var cornerRadius = 5; // Radio de las esquinas redondeadas
+
+            doc.roundedRect(x, y, width, height, cornerRadius, cornerRadius, 'FD');
+
+
+            doc.save('sample-file.pdf');
+        }
+
+        document.getElementById('cmd').addEventListener('click', generatePDF);
+    </script>
+<style>
+    h3
+{
+  border:1px solid rgb(12, 34, 228);
+}
+
+</style>
+<script>
+
+	function inversion(){
+		valor = document.getElementById("txtN1").value;
+		valor1 = document.getElementById("txtN2").value;
+			if( valor == "" || valor1== "") {
+  				alert('Completar todos los campos');
+				}	else
+   						{
+							var n1 = document.getElementById('txtN1').value;
+							var n2 = document.getElementById('txtN2').value;
+							var cien= n2/100;
+							var dia=(n1*cien)/365;
+							dia = Number(dia.toFixed(2));//muestra 2 decimales
+							PorDia.innerHTML = "Ganancia por Dia: "  +dia;
+							
+							var semana=dia*7;
+							semana = Number(semana.toFixed(2));//muestra 2 decimales
+							Por7Dias.innerHTML = "Ganancia por semana: "  +semana;
+							
+							var TreintaDias=dia*30;
+							TreintaDias = Number(TreintaDias.toFixed(2));//muestra 2 decimales
+							Por30Dias.innerHTML = "Ganancia por 30 Dias: "  +TreintaDias;
+							
+							var Total=+n1+TreintaDias;
+							Total = Number(Total.toFixed(2));//muestra 2 decimales
+							TotalMas30.innerHTML = "Total mas Ganancia por 30 Dias: "  +Total;
+							TotalMas30.style.color = "blue";
+							/*alert("La suma es: "+dia)*/
+      
+   						 }
+				};
+				
+				
+	function SacarPorcentajeDeLaInversion(){
+
+		valor = document.getElementById("txtN3").value;
+		valor1 = document.getElementById("txtN4").value;
+		valor2 = document.getElementById("txtN5").value;
+		var checkbox = document.getElementById("flexCheckDefault");
+			//Verifica que el checkbox sea true
+			if (checkbox.checked) { 
+				if( valor == "" || valor1== ""  || valor2== "") {
+					alert('Completar todos los campos');
+					}else
+							{
+							//Si el checkbox es verdadero realiza esta accion...
+							//en caso de que sea inversion actualizada, se resta la ganancia y la inversion...
+							//para asi obtener la ganancia actualizada y luego se continua con el calculo...
+							//como en el caso de que no sea actualizada la inversion
+							//Inversion actualizada es el rendimiento diario
+							//Inversion es el rendimiento de un plazo fijo.
+							var n3 = document.getElementById('txtN3').value;
+            				var n4 = document.getElementById('txtN4').value;
+							var n5 = document.getElementById('txtN5').value;
+
+							var resto= n5-n3;
+							var ganancia= n3/n4;
+							var porcentaje=((ganancia*365)/resto)*100;
+							porcentaje = Number(porcentaje.toFixed(2));//muestra 2 decimales
+							Porcentaje.innerHTML = "Porcentaje: "  +porcentaje+"%";
+							Porcentaje.style.color = "blue";
+
+							//Cuando calcula Con el checkbox MUESTRA la inversion inicial 
+							const InversionInicial = document.getElementById('InvAct');
+							InversionInicial.style.display = 'Block';
+							InvAct.innerHTML = "Inversion Inicial: " +Number(resto.toFixed(2));
+							InvAct.style.color = "blue";
+		  
+							}
+							}else {
+								{
+								var n3 = document.getElementById('txtN3').value;
+            					var n4 = document.getElementById('txtN4').value;
+								var n5 = document.getElementById('txtN5').value;
+
+								var ganancia= n3/n4;
+								var porcentaje=((ganancia*365)/n5)*100;
+								porcentaje = Number(porcentaje.toFixed(2));//muestra 2 decimales
+								Porcentaje.innerHTML = "Porcentaje: "  +porcentaje+"%";
+								Porcentaje.style.color = "blue";
+
+								//Cuando calcula Sin el checkbox OCULTA la inversion inicial 
+								const InversionInicial = document.getElementById('InvAct');
+								InversionInicial.style.display = 'none';
+		  
+							 }
+
+        	}
+	};
+
+
+	function SacarLaInversionParaLaGananciaIdeal(){
+			valor = document.getElementById("txtN6").value;
+			valor1 = document.getElementById("txtN7").value;
+			valor2 = document.getElementById("txtN8").value;
+				if( valor == "" || valor1== ""  || valor2== "") {
+					alert('Completar todos los campos');
+					}	else
+							{
+								var n6 = document.getElementById('txtN6').value;
+								var n7 = document.getElementById('txtN7').value;
+								var n8 = document.getElementById('txtN8').value;
+					
+								var ganancia= n6/n7;
+								var porcentaje=((ganancia*365)/(n8/100));
+								porcentaje = Number(porcentaje.toFixed(2));//muestra 2 decimales
+								InversionRequerida.innerHTML = "Inversion Requerida: "  +porcentaje +" por " +n7 +" dias";
+								InversionRequerida.style.color = "blue";
+		  
+							 }
+					};
+
+		 
+    </script>
+</body>
+</html>
